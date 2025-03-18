@@ -18,8 +18,14 @@ async function insertUsername(username) {
   await pool.query("INSERT INTO usernames (username) VALUES ($1)", [username]);
 }
 
+async function deleteAllUsernames() {
+  await pool.query("DELETE FROM usernames");
+  await pool.query("ALTER SEQUENCE usernames_id_seq RESTART WITH 1;");
+}
+
 module.exports = {
   getAllUsernames,
   searchUsernames,
-  insertUsername
+  insertUsername,
+  deleteAllUsernames
 };
